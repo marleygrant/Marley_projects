@@ -1,38 +1,55 @@
 # D'Marley Grant — Portfolio Site
 
-This folder is a complete, ready-to-publish website:
+A single-page, static portfolio built with plain HTML/CSS/JS (no build step, no dependencies).
 
-- `index.html` — the page content
-- `styles.css` — all visual styling
-- `script.js` — mobile menu + gentle scroll animation
-- `assets/DMarley_Grant_Resume.pdf` — your résumé (downloadable + embedded on the page)
+## Files
 
-## Before you publish
+```
+index.html      Page structure & content
+style.css       All styling
+script.js       Mobile nav toggle only
+assets/
+  headshot.png              Your photo
+  DMarleyGrant_Resume.pdf   Downloadable resume
+```
 
-1. **Add your video.** Open `index.html`, find the `<!-- VIDEO -->` section (search for `TO ADD YOUR VIDEO`), and follow the comment to paste in your YouTube or Loom embed code.
-2. Double-check the résumé PDF in `/assets` is your most current version.
+## Deploy to GitHub Pages (free, public URL)
 
-## Easiest way to publish (no coding required): GitHub Pages
+1. Create a new **public** repository on GitHub — name it whatever you like
+   (e.g. `portfolio`), but note: if you name it exactly
+   `YOUR-USERNAME.github.io`, it publishes at the root of that URL.
+2. Upload these files (drag-and-drop on GitHub's "Add file → Upload files"
+   works fine, or use git — see below). Keep the `assets` folder structure
+   intact.
+3. In the repo, go to **Settings → Pages**.
+4. Under "Build and deployment," set **Source: Deploy from a branch**,
+   branch: `main`, folder: `/ (root)`. Save.
+5. GitHub will give you a live URL, usually:
+   `https://YOUR-USERNAME.github.io/REPO-NAME/`
+   (or `https://YOUR-USERNAME.github.io/` if you used the special repo name
+   above). It can take 1–2 minutes to go live.
+6. **Before submitting:** open that URL in a normal (not logged-in) browser
+   window or incognito tab to confirm it's fully public with no login
+   prompt, and open it on your phone to confirm it looks right.
 
-1. Create a free account at github.com if you don't have one.
-2. Create a new repository (e.g. `portfolio`), and upload every file in this folder (keep the `assets` folder structure).
-3. In the repository, go to **Settings → Pages**, set the source branch to `main` and folder to `/root`, then Save.
-4. GitHub gives you a public link like `https://yourusername.github.io/portfolio/` — that's your submission URL. No login required to view it.
+### If you'd rather use git from the command line
+```bash
+git init
+git add .
+git commit -m "Portfolio site"
+git branch -M main
+git remote add origin https://github.com/YOUR-USERNAME/REPO-NAME.git
+git push -u origin main
+```
+Then follow steps 3–6 above.
 
-## Alternative: Netlify Drop (fastest, drag-and-drop)
+## Editing content later
 
-1. Go to **app.netlify.com/drop**.
-2. Drag this whole folder into the browser window.
-3. Netlify publishes it instantly and gives you a public URL — copy that for your Canvas submission.
-
-## Alternative: Google Sites
-
-If you'd rather use Google Sites (as the assignment suggests), you'll need to manually recreate the sections using Google Sites' own text/image blocks — Google Sites doesn't accept raw HTML/CSS uploads. Use this file as your content and copy source (headlines, project write-ups, skills), and re-embed the résumé PDF via Google Sites' "Insert → PDF" tool after uploading it to your personal Google Drive. Use your personal Gmail account, since your WFU account expires 60 days after graduation.
-
-## Checklist before submitting
-
-- [ ] Site is public — no password or login required
-- [ ] Video is embedded and plays without a login
-- [ ] Résumé downloads correctly
-- [ ] Checked on both a laptop and a phone browser
-- [ ] Canvas comment states your track: "Targeting Track"
+- Text and section content live directly in `index.html` — search for the
+  section you want (`id="about"`, `id="projects"`, etc.) and edit the text
+  between the tags.
+- Colors and fonts are defined once at the top of `style.css` under `:root`
+  — change a value there and it updates everywhere.
+- To swap the resume, replace `assets/DMarleyGrant_Resume.pdf` with a new
+  file of the *same name*, or update the filename in the two places it's
+  linked in `index.html`.
