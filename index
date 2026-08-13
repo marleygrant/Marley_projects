@@ -47,7 +47,6 @@
       <a href="https://www.linkedin.com/in/dmarleygrant" class="btn btn-ghost-dark btn-block" target="_blank" rel="noopener">LinkedIn ↗</a>
       <div class="sidebar-contact">
         <a href="mailto:granda26@wfu.edu">granda26@wfu.edu</a>
-        <a href="tel:8633920280">863.392.0280</a>
       </div>
     </div>
   </aside>
@@ -339,7 +338,6 @@
         </div>
         <div class="contact-methods">
           <a href="mailto:granda26@wfu.edu">granda26@wfu.edu</a>
-          <a href="tel:8633920280">863.392.0280</a>
           <a href="https://www.linkedin.com/in/dmarleygrant" target="_blank" rel="noopener">linkedin.com/in/dmarleygrant</a>
           <a href="assets/DMarleyGrant_Resume.pdf" class="btn btn-accent" target="_blank" rel="noopener" style="margin-top:6px;">Download Resume (PDF)</a>
         </div>
