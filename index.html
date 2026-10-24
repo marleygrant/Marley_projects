@@ -189,6 +189,60 @@
       <article class="project-card">
         <div class="project-head">
           <div>
+            <h3>ECG Patient Matching: Hospital ECG vs. Apple Watch</h3>
+            <div class="project-collab">2026 Wake Forest School of Medicine Build-A-Thon — Team AI Deacons, with Brian Mejia-Lopez, Nathan Potisit &amp; Amy Platter</div>
+          </div>
+          <div class="project-badges">
+            <span class="badge badge-accent">🥈 2nd Place</span>
+            <span class="badge">0.984 AUROC</span>
+            <span class="badge badge-blue">37K+ ECGs</span>
+          </div>
+        </div>
+
+        <div class="stepper-tabs" role="tablist" aria-label="ECG matching project breakdown">
+          <button class="stepper-tab is-active" role="tab" aria-selected="true" data-panel="ecg-context">Context</button>
+          <button class="stepper-tab" role="tab" aria-selected="false" data-panel="ecg-approach">My Approach</button>
+          <button class="stepper-tab" role="tab" aria-selected="false" data-panel="ecg-result">Result</button>
+        </div>
+        <div class="stepper-panels">
+          <div class="stepper-panel is-active" id="ecg-context">
+            <p>Doctors want to monitor heart health at home with smartwatch ECGs, but that only works if each watch recording can be trusted to belong to the right patient. The challenge: given two single-lead (Lead I) ECGs, one from a hospital machine and one from an Apple Watch or a second hospital ECG, score from 0 to 1 how likely they came from the same person. Entries were judged by AUROC on a Wake Forest holdout of patients no team ever saw.</p>
+          </div>
+          <div class="stepper-panel" id="ecg-approach">
+            <p>We built a three-step pipeline in Python: <strong>clean</strong> every ECG the same way (resample to 250 Hz, filter drift and noise, rescale so the beat's shape matters, not the device), <strong>score</strong> each pair with two models, then <strong>blend</strong> them. A Siamese CNN turns each 10-second signal into a 64-number "fingerprint" and compares them (80% of the score); a heartbeat model compares the median beat plus six measurements a doctor can check, like heart rate, R peak height and T wave height (20%). We trained on 37,237 hospital ECGs from 10,000 MIMIC-IV patients plus St. Jude hospital/watch pairs, split patients before building pairs so no one appeared in both training and testing, and tuned every setting on a separate practice group.</p>
+          </div>
+          <div class="stepper-panel" id="ecg-result">
+            <p>Our model came in <strong>second place</strong> at the Build-A-Thon. On patients it never saw, it reached an AUROC of <strong>0.984</strong> for hospital vs. Apple Watch and <strong>0.981</strong> for hospital vs. hospital, and ranked the patient's own watch ECG first out of 48 candidates 79.2% of the time (chance is about 2%). Error analysis showed most misses came from noisy watch recordings or large heart-rate changes between recordings, and we tested several "fixes" before trusting them, keeping only what actually helped.</p>
+            <div class="impact-strip"><strong>Business impact:</strong> shows a smartwatch ECG carries a personal signature strong enough to flag records filed under the wrong patient and to audit "anonymized" ECG data for re-identification risk before it's shared.</div>
+          </div>
+        </div>
+        <div class="project-media">
+          <figure style="grid-column: 1 / -1;">
+            <img src="assets/project-ecg-matching-example.png" alt="Three ECG traces: Patient A hospital ECG, Patient A Apple Watch ECG scoring 1.000 as the same person, and Patient B Apple Watch ECG scoring 0.050 as a stranger" loading="lazy">
+            <figcaption>Same heart, two devices: Patient A's watch ECG scores 1.000 against their hospital ECG, while a stranger scores 0.050.</figcaption>
+          </figure>
+          <figure style="grid-column: 1 / -1;">
+            <img src="assets/project-ecg-siamese-model.png" alt="Diagram of a Siamese CNN: two ECGs pass through a shared six-layer encoder into 64-number fingerprints, which are compared to produce a score from 0 to 1" loading="lazy">
+            <figcaption>The waveform model: a shared encoder turns each ECG into a fingerprint, then compares the two.</figcaption>
+          </figure>
+          <figure style="grid-column: 1 / -1;">
+            <img src="assets/project-ecg-auroc-results.png" alt="Bar chart of locked-test AUROC across model versions v1, v2 and v3, reaching 0.984 for St. Jude hospital vs Apple Watch and 0.981 for MIMIC hospital vs hospital" loading="lazy">
+            <figcaption>Locked-test AUROC improved with each version; the final v3 model scored 0.984 and 0.981.</figcaption>
+          </figure>
+        </div>
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">Deep Learning</span>
+          <span class="tag">Siamese CNN</span>
+          <span class="tag">Signal Processing</span>
+          <span class="tag">AUROC</span>
+          <span class="tag">Healthcare Analytics</span>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <div class="project-head">
+          <div>
             <h3>Regional Hospital Patient Volume Forecast</h3>
             <div class="project-collab">Team project — with Connor Farrell &amp; Jadyn Jeanes</div>
           </div>
