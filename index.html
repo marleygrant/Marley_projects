@@ -39,6 +39,7 @@
       <a href="#projects"><span class="dot"></span>Projects</a>
       <a href="#skills"><span class="dot"></span>Skills</a>
       <a href="#education"><span class="dot"></span>Education</a>
+      <a href="#resume"><span class="dot"></span>Resume</a>
       <a href="#contact"><span class="dot"></span>Contact</a>
     </nav>
 
@@ -185,6 +186,67 @@
         <h2 class="section-title">Analytical project experience</h2>
         <p class="section-sub">Each project, broken down the way I'd walk a stakeholder through it: context, approach, result.</p>
       </div>
+
+      <article class="project-card">
+        <div class="project-head">
+          <div>
+            <h3>Stopping Fraud Without Stalling Growth: Bank Fraud Policy</h3>
+            <div class="project-collab">2026 Wake Forest MSBA Analytics Challenge, presented to a panel of judges, with Karis Avant, Micaela Creo, Andrew Nguyen &amp; Chris Tsimbinos</div>
+          </div>
+          <div class="project-badges">
+            <span class="badge badge-accent">71% of Fraud Stopped</span>
+            <span class="badge">$4.9M Est. Annual Savings</span>
+            <span class="badge badge-blue">285K Applications</span>
+          </div>
+        </div>
+
+        <div class="stepper-tabs" role="tablist" aria-label="Fraud policy project breakdown">
+          <button class="stepper-tab is-active" role="tab" aria-selected="true" data-panel="dfs-context">Context</button>
+          <button class="stepper-tab" role="tab" aria-selected="false" data-panel="dfs-approach">My Approach</button>
+          <button class="stepper-tab" role="tab" aria-selected="false" data-panel="dfs-result">Result</button>
+        </div>
+        <div class="stepper-panels">
+          <div class="stepper-panel is-active" id="dfs-context">
+            <p>Deacon Financial Services (DFS), the bank in our case, launched its "New Money Bonus" campaign: a $200 sign-up bonus plus referral rewards. It brought in 146,181 applications from July to October, the bank's first real digital growth in two years. Estimated fraud also rose from about 340 to about 2,960 cases a month. The bank's current fraud score stopped only <strong>16%</strong> of fraud and held 19% of applicants for manual review, which broke its "open in minutes" promise. Fraud losses and reviews together cost an estimated <strong>$13.1M a year</strong>. Our question: how can the bank limit fraud without stalling growth?</p>
+          </div>
+          <div class="stepper-panel" id="dfs-approach">
+            <p><strong>My own model.</strong> Before the team model came together, I built my own model on my own to work through the problem end to end. It's a stepwise logistic regression that scores each application when it's submitted, plus a second version that adds the first 30 days of account activity. Every cleaning step (missing-value medians, outlier caps, low-variability checks) was learned from training rows only, and I checked it with 5-fold cross-validation. I compared it head to head with the bank's live score using actual losses from its investigation records: <em>net value = fraud caught × loss per missed fraud − applications flagged × review cost</em>. I ran that comparison at equal review capacity, and again with a fuller cost that adds bonuses paid and investigation time. To make sure the gap wasn't luck, I re-drew the test set 1,000 times.</p>
+            <p style="margin-top:12px;">My model reached a test AUC of <strong>0.740</strong>, against 0.640 for the bank's score on the same test applications. Reviewing the same share of applications as the bank, my model caught <strong>55.5% of fraud versus 34.1%</strong> for the bank's score, and came out about <strong>$379K ahead per 100,000 applications</strong> while the bank's score lost about $203K, once all costs of a missed fraud are counted (direct loss, bonus paid and investigation). My model beat the bank's score in all 1,000 re-draws. That showed me how much better the data could do than the current score, and the team's model pushed it further.</p>
+            <p style="margin-top:12px;"><strong>The team model we presented.</strong> We pulled 30 tables from the bank's SQL database and merged them into one row per application: 285,046 applications and 14,325 confirmed fraud cases. Much of the work was thinking like the people committing the fraud. How would someone farm the $200 bonus, open accounts with stolen or made-up identities, or run a referral ring? Those questions turned into new variables the raw data didn't have, such as how many applications came from the same device, referral code or email domain in the last 30 days, hours since the same person last applied, and how many seconds a session took to submit. Our "ring" signals proved the point: the top 1% of repeated devices accounted for 54% of device-linked fraud, and 8 of the model's top 15 drivers were variables we engineered this way. Because fraudsters adapt, we framed this as an ongoing habit: keep asking how someone would game the next offer, and build the variable before the losses show up. We trained on January 2025 to June 2026, validated on July and tested on August, so fraud rings couldn't leak between training and test. We compared logistic regression, random forest and gradient boosting. Gradient boosting won with a test ROC-AUC of 0.889, against 0.607 for the bank's current score.</p>
+          </div>
+          <div class="stepper-panel" id="dfs-result">
+            <p>We recommended a <strong>three-band policy</strong> built on the team model. Applications under an 11% fraud probability are approved instantly (81.6%), those from 11% to 17% go to human review (6.6%, about 80 a day and under 5% of review capacity), and those at 17% or higher are declined. The policy stops <strong>71% of fraud versus 16% today</strong>, about 4.5× more. It cuts the estimated yearly net cost from $13.1M to $8.2M, saving about <strong>$4.9M a year</strong>, and raises instant decisions from about 81% to 93%. A decline-only policy would have saved about $1.4M more. We kept human review anyway because it lets through 21% fewer frauds than a flat approve/decline rule and keeps producing fresh fraud labels to retrain the model. We also gave Marketing and Risk recommendations: referrals were 13% of applications but 41% of fraud, so we proposed a repeat-device and referral-code review rule and a bonus clawback clause.</p>
+            <div class="impact-strip"><strong>Business impact:</strong> gives the bank a way to keep its growth campaign running while catching far more fraud, and lets most good customers still open an account in minutes.</div>
+          </div>
+        </div>
+        <div class="project-media">
+          <figure style="grid-column: 1 / -1;">
+            <img src="assets/project-dfs-problem.jpg" alt="Slide: the bank's current model stops 16% of fraud, 1 in 7 manual reviews is fraud, 19% of applicants wait for review, and fraud plus reviews cost an estimated $13.1M a year" loading="lazy">
+            <figcaption>The problem: today's fraud score can't tell good customers from bad.</figcaption>
+          </figure>
+          <figure style="grid-column: 1 / -1;">
+            <img src="assets/project-dfs-model-comparison.jpg" alt="Bar chart of share of fraud caught when reviewing the riskiest 20%: current score 30%, logistic regression 74%, random forest 76%, gradient boosting 77%" loading="lazy">
+            <figcaption>Three models beat the bank's current score; gradient boosting won.</figcaption>
+          </figure>
+          <figure style="grid-column: 1 / -1;">
+            <img src="assets/project-dfs-recommendation.jpg" alt="Slide: three decision bands, approve below 11%, review 11 to 17%, decline 17% or above, stopping 71% of fraud with $4.9M estimated annual savings" loading="lazy">
+            <figcaption>Our recommendation: approve, review or decline based on fraud probability.</figcaption>
+          </figure>
+          <figure style="grid-column: 1 / -1;">
+            <img src="assets/project-dfs-before-after.jpg" alt="Slide comparing current numbers to projections: fraud stopped 16% to 71%, yearly net cost $13.1M to $8.2M, applicants waiting for review 19% to 6.6%" loading="lazy">
+            <figcaption>Current numbers vs. our projections.</figcaption>
+          </figure>
+        </div>
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">SQL</span>
+          <span class="tag">Fraud Detection</span>
+          <span class="tag">Logistic Regression</span>
+          <span class="tag">Gradient Boosting</span>
+          <span class="tag">Cost-Benefit Analysis</span>
+          <span class="tag">Executive Presentation</span>
+        </div>
+      </article>
 
       <article class="project-card">
         <div class="project-head">
@@ -378,6 +440,23 @@
           <div class="timeline-meta">MAY 2025</div>
           <h3>B.S. Economics, Minor in Business Analytics</h3>
           <p>Florida Southern College — Lakeland, FL</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESUME -->
+    <section class="panel-section" id="resume">
+      <div class="section-head">
+        <span class="eyebrow">Resume</span>
+        <h2 class="section-title">My resume at a glance</h2>
+      </div>
+      <div class="panel-card resume-card">
+        <a href="assets/DMarleyGrant_Resume.pdf" target="_blank" rel="noopener" class="resume-preview" aria-label="Open D'Marley Grant's resume as a PDF">
+          <img src="assets/resume-preview.jpg" alt="One-page resume of D'Marley Grant: MSBA candidate at Wake Forest, with skills, Publix experience, and projects in fraud detection, ECG patient matching, forecasting, and econometrics" loading="lazy">
+        </a>
+        <div class="resume-actions">
+          <a href="assets/DMarleyGrant_Resume.pdf" class="btn btn-primary" target="_blank" rel="noopener">Open full resume</a>
+          <a href="assets/DMarleyGrant_Resume.pdf" class="btn btn-outline" download>Download PDF</a>
         </div>
       </div>
     </section>

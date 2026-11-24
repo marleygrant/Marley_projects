@@ -696,3 +696,10 @@ h1, h2, h3 {
 @media (max-width: 420px) {
   .kpi-card { flex-basis: 100%; }
 }
+
+/* Resume preview */
+.resume-card { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+.resume-preview { display: block; width: 100%; max-width: 720px; border: 1px solid rgba(0,0,0,0.12); border-radius: 6px; overflow: hidden; box-shadow: 0 6px 24px rgba(0,0,0,0.08); transition: box-shadow 0.15s ease, transform 0.15s ease; }
+.resume-preview:hover { box-shadow: 0 10px 32px rgba(0,0,0,0.14); transform: translateY(-2px); }
+.resume-preview img { display: block; width: 100%; height: auto; }
+.resume-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
